@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/login.css" />
+</h:head>
+<body>
+	<!-- LOGIN MODULE -->
+	<div class="login">
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<div class="wrap">
+			<div class="content">
+
+				<!-- SLIDESHOW -->
+				<div id="slideshow">
+					<div class="one">
+						<h2>
+							<span>VICAR</span>
+						</h2>
+						<p align="center">SISTEMA DE RENTA DE EQUIPOS DE CONSTRUCCIÓN</p>
+					</div>
+
+				</div>
+			</div>
+			<div class="user">
+				<div class="form-wrap">
+
+					<div class="tabs" align="center">
+						<span><i class="pi pi-facebook"></i></span> <span><i
+							class="pi pi-google"></i></span> <span><i class="pi pi-twitter"></i></span>
+						<h1 class="login-tab">Login</h1>
+					</div>
+					<div class="tabs-content">
+						<div id="login-tab-content" class="active">
+							<h:form class="login-form">
+								<div class="input-group form-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-user"></i></span>
+									</div>
+									<p:inputText class="input" id="user_login"
+										placeholder="Ingrese su Usuario"
+										value="#{beanSegLogin.idSegUsuario}" />
+								</div>
+								<div class="input-group form-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-key"></i></span>
+									</div>
+									<p:password class="input" id="user_pass"
+										placeholder="Ingrese su Contraseña"
+										value="#{beanSegLogin.clave}" />
+								</div>
+								<div class="input-group form-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-key"></i></span>
+									</div>
+									<p:commandButton value="Login"
+										action="#{beanSegLogin.actionLogin()}" icon="pi pi-key"
+										class="button"></p:commandButton>
+								</div>
+
+							</h:form>
+							<div class="card-footer">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<div class="d-flex justify-content-center links">
+									<h:form>
+										<h:outputText value="Inicializar datos: " />
+										<p:commandButton value="Inicializar"
+											actionListener="#{beanSegLogin.actionListenerInicialiarDemo()}"
+											icon="pi pi-cog">
+											<p:confirm type="popup" header="Confirmation"
+												message="Desea inicializar datos?"
+												icon="pi pi-exclamation-triangle" />
+										</p:commandButton>
+									</h:form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<p:confirmPopup global="true">
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirm-popup-no ui-button-flat" />
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirm-popup-yes" />
+	</p:confirmPopup>
+</body>
+</html>

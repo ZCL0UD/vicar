@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/dashboard.css" />
+		<link rel="stylesheet" type="text/css"
+		href="../../resources/css/style-ventas.css" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-arrow-left"
+				action="#{beanRenta.actionRegresar()}" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo Recepcion/Multa"></p:staticMessage>
+	</h:form>
+	<div>
+		<h:form>
+			<p:panelGrid columns="2" style="width:40%">
+				<h:outputText value="ID Nota de renta" />
+				<h:outputText value=" #{beanRecepcion.notaRenta.idNtr}" />
+				<h:outputText value="Cedula" />
+				<h:outputText value="#{beanRecepcion.notaRenta.cliente.cliCedula}" />
+				<h:outputText value="Cliente" />
+				<h:outputText value="#{beanRecepcion.notaRenta.cliente.cliNombre}" />
+				<h:outputText value=" Multa-Fecha ($)" />
+				<h:outputText value=" #{beanRecepcion.total_multa_fecha}" />
+				<h:outputText value="Multa-Daños($)" />
+				<h:outputText value=" #{beanRecepcion.total_multa_precio}" />
+				<h:outputText value="Observacion" />
+				<h:outputText value="#{beanRecepcion.cadena_descripcion}" />
+			</p:panelGrid>
+			<p:panelGrid columns="2">
+				<h:outputText value="Total-Multa" />
+				<h:outputText
+					value="  #{beanRecepcion.actionTotalMultaFechaDaños()}" />
+				<p:commandButton value="Cancelar" icon="pi pi-check" update="@form "></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/dashboard.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/style-ventas.css" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="NOTA DE RENTA"></p:staticMessage>
+	</h:form>
+	<div align="center">
+		<h2 style="color: white;">Nº 00#{beanRenta.id_ntr} - Fecha:
+			#{beanRenta.fechaA}</h2>
+	</div>
+	<div align="center">
+		<h:form id="Tabla1">
+			<p:panelGrid columns="4" styleClass="ListaDetalles2">
+				<h:outputText value="CEDULA"
+					style="width:120px; font-size:20px; text-align: center" />
+				<p:selectOneMenu id="city" value="#{beanRenta.cedula}" effect="fold"
+					editable="true">
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{beanRenta.listaClientes}" var="u"
+						itemLabel="#{u.cliCedula} (#{u.cliNombre})"
+						itemValue="#{u.cliCedula}"></f:selectItems>
+				</p:selectOneMenu>
+				<h:outputText value="PRODUCTO"
+					style="width:120px; font-size:20px; text-align: center" />
+				<p:selectOneMenu value="#{beanRenta.idProductoSeleccionado}">
+					<f:selectItem itemLabel="Seleccione..." noSelectionOption="true" />
+					<f:selectItems value="#{beanRenta.listaProductos}" var="u"
+						itemLabel="#{u.proNombre} - stock: (#{u.proCantidad})"
+						itemValue="#{u.idProducto}"></f:selectItems>
+				</p:selectOneMenu>
+				<h:outputText value="CANTIDAD"
+					style="width:120px; font-size:20px; text-align: center" />
+				<p:spinner value="#{beanRenta.cantidadSeleccionada}" min="1"
+					max="100" style="width:80px" />
+				<h:outputText value="DIAS ALQUILER"
+					style="width:120px; font-size:20px; text-align: center" />
+				<p:spinner value="#{beanRenta.diasAlquiler}" min="1" max="100"
+					style="width:80px" />
+				<p:commandButton value="Carrito" icon="pi pi-shopping-cart"
+					styleClass="rounded-button ui-button-help"
+					actionListener="#{beanRenta.actionListenerAdicionarProducto()}"
+					update="@form,:Tabla2" />
+				<p:commandButton value="SAVE" icon="pi pi-save"
+					action="#{beanRenta.actionRegistrarRenta()}"
+					update="Tabla1,:Tabla2" styleClass="rounded-button ui-button-help" />
+				<p:commandButton value="Cancelar" icon="pi pi-times"
+					action="#{beanRenta.actionCancelar()}" update="Tabla1,:Tabla2"
+					styleClass="rounded-button ui-button-help" />
+				<p:commandButton value="Imprimir" icon="pi pi-print"
+					action="#{beanRenta.actionReporte(beanRenta.id_ntr2)}"
+					update="Tabla1,:Tabla2" styleClass="rounded-button ui-button-help"
+					ajax="false" />
+			</p:panelGrid>
+			<!-- <div align="right">
+			<p:commandButton value="Imprimir" icon="pi pi-print"
+				action="#{beanRenta.actionReporte(beanRenta.id_ntr2)}" update="Tabla1,:Tabla2" 
+				styleClass="ui-button-raised ui-button-success" ajax="false"/>
+			</div>-->
+		</h:form>
+	</div>
+	<div align="center">
+		<h:form id="Tabla2" styleClass="ListaDetalles">
+			<p:dataTable value="#{beanRenta.cabecera.detalleRentas}" var="p"
+				emptyMessage="Sin registros">
+				<p:column headerText="ID PRODUCTO"
+					style="width:32px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.producto.idProducto}" />
+				</p:column>
+				<p:column headerText="CLIENTE"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{beanRenta.cabecera.cliente.cliNombre}" />
+				</p:column>
+				<p:column headerText="NOMBRE PRODUCTO"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.producto.proNombre}" />
+				</p:column>
+				<p:column headerText="CANTIDAD"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.detRentaCantidad}" />
+					<f:facet name="footer">
+						<h:outputText value="TOTAL: #{beanRenta.cabecera.ntrTotal}"
+							style="width:120px; font-size:20px; text-align: center"
+							styleClass="reskinned-datatable" />
+					</f:facet>
+				</p:column>
+				<p:column headerText="ELIMINAR"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<p:commandButton value="ELIMINAR" icon="pi pi-times"
+						actionListener="#{beanRenta.actionListenerQuitarProducto(p.producto.idProducto)}"
+						update="@form,:Tabla1" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+
+</body>
+</html>

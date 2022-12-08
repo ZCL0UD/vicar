@@ -1,0 +1,10 @@
+INDEX VERSION 1.4+C:\Users\AlienWare\Desktop\renta\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2612697028.index
+2168126223.index
+1136046518.index
+3293835455.index
+1136046518.index
+3099216984.index
+2785838846.index
+4286329852.index
+1387060944.index

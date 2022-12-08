@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modules>
+  <module moduleId="org.eclipse.jst.jee.server:vicarmipymeWeb" serverId="WildFly 22"/>
+  <module moduleId="org.eclipse.jst.jee.server:vicarmipyme" serverId="WildFly 22"/>
+  <module moduleId="org.eclipse.jst.jee.server:vicarmipymeEJB" serverId="WildFly 22"/>
+</modules>

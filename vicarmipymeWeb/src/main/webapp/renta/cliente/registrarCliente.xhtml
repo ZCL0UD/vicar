@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+<link rel="stylesheet" type="text/css"
+		href="../../resources/css/estyle-registro.css" />
+<link rel="stylesheet" type="text/css"
+		href="../../resources/css/dashboard.css" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo de cliente"></p:staticMessage>
+	</h:form>
+	<div align="center">
+		<h:form id="mentorship" style="background: white; padding: 64px; border: none; width: 750px;">
+				<legend>Registro de Clientes</legend>
+				<div id="line1"></div>
+				<div class="input-wrapper">
+				<h:outputText value="Nombre y Apellido:" />
+				<p:inputText value="#{beanCliente.clienteNuevo.cliNombre}" style=" font-size: 40px; text-align: center"
+				validatorMessage="Nombres Incorrectos" >
+				<f:validateRegex
+					pattern="^(([A-Z]|[Á-Ú])([a-z]|[á-ú])+)\s(([A-Z]|[Á-Ú])([a-z]|[á-ú])+)" message="Your new custom message here"/>
+				</p:inputText>
+				<h:outputText value="Cedula:" />
+				<p:inputText value="#{beanCliente.clienteNuevo.cliCedula}" style=" font-size: 40px; text-align: center" 
+				validatorMessage="Cédula Incorrecta">
+				<p:keyFilter mask="num" />
+				<f:validateRegex
+					pattern="^(([0][1-9])|([1][0-9])|([2][0-4]))([0-9]{8})" />
+			</p:inputText>
+				<h:outputText value="Dirección:" />
+				<p:inputText value="#{beanCliente.clienteNuevo.cliDireccion}" style=" font-size: 40px; text-align: center"/>
+				<h:outputText value="Telefono:" />
+				<p:inputText value="#{beanCliente.clienteNuevo.cliTelefono}" style=" font-size: 40px; text-align: center"
+				validatorMessage="Número Incorrecto">
+				<p:keyFilter mask="num" />
+				<f:validateRegex
+					pattern="^([0-9]{10})" />
+			</p:inputText>
+				<h:outputText value="Correo:" />
+				<p:inputText value="#{beanCliente.clienteNuevo.cliCorreo}" style=" font-size: 40px; text-align: center"
+				validatorMessage="Correo Incorrecto">
+				<f:validateRegex
+					pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+			</p:inputText>
+			</div>
+			<div id="line1"></div>
+			<p:commandButton value="Registar Cliente" styleClass="rounded-button ui-button-help"
+				action="#{beanCliente.actionListenerInsertarCliente()}"
+				update="@form"></p:commandButton>		
+		</h:form>
+	</div>
+</body>
+</html>

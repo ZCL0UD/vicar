@@ -1,0 +1,25 @@
+
+dic. 06, 2022 12:05:16.138 NEW SESSION
+dic. 06, 2022 12:05:16.138 [2022-12-06T17:05:16Z ERROR glean_core::metrics::ping] Invalid reason code startup for ping background-update
+dic. 06, 2022 13:10:34.228 [2022-12-06T18:10:34Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 06, 2022 13:10:34.228 [2022-12-06T18:10:34Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 06, 2022 13:10:34.248 [Parent 2992, IPC I/O Parent] WARNING: DuplicateHandle failed for handle 0 in TransferHandles: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/common/ipc_channel_win.cc:746
+dic. 06, 2022 13:10:34.306 [2022-12-06T18:10:34Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 06, 2022 13:10:34.306 [2022-12-06T18:10:34Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 06, 2022 13:10:34.307 [2022-12-06T18:10:34Z ERROR viaduct::backend::ffi] Missing HTTP status
+
+dic. 06, 2022 23:38:16.870 NEW SESSION
+dic. 06, 2022 23:38:16.870 [2022-12-07T04:38:16Z ERROR glean_core::metrics::ping] Invalid reason code startup for ping background-update
+
+dic. 07, 2022 19:00:07.364 NEW SESSION
+dic. 07, 2022 19:00:07.364 [2022-12-08T00:00:07Z ERROR glean_core::metrics::ping] Invalid reason code startup for ping background-update
+
+dic. 07, 2022 20:23:58.936 NEW SESSION
+dic. 07, 2022 20:23:58.937 [2022-12-08T01:23:58Z ERROR glean_core::metrics::ping] Invalid reason code startup for ping background-update
+dic. 07, 2022 20:40:07.168 [2022-12-08T01:40:07Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 07, 2022 20:40:07.168 [2022-12-08T01:40:07Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 07, 2022 20:40:07.249 [Parent 29972, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+dic. 07, 2022 20:40:07.250 [Parent 29972, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+dic. 07, 2022 20:40:07.312 [2022-12-08T01:40:07Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 07, 2022 20:40:07.312 [2022-12-08T01:40:07Z ERROR viaduct::backend::ffi] Missing HTTP status
+dic. 07, 2022 20:40:07.313 [2022-12-08T01:40:07Z ERROR viaduct::backend::ffi] Missing HTTP status

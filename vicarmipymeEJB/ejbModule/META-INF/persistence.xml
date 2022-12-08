@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="respaldoDS"
+		transaction-type="JTA">
+		<jta-data-source>java:/respaldoDS</jta-data-source>
+		<class>vicar.model.core.entities.Almacenaje</class>
+		<class>vicar.model.core.entities.AudBitacora</class>
+		<class>vicar.model.core.entities.Cliente</class>
+		<class>vicar.model.core.entities.Compra</class>
+		<class>vicar.model.core.entities.DetalleCompra</class>
+		<class>vicar.model.core.entities.DetalleRenta</class>
+		<class>vicar.model.core.entities.NotaRenta</class>
+		<class>vicar.model.core.entities.Producto</class>
+		<class>vicar.model.core.entities.Proveedore</class>
+		<class>vicar.model.core.entities.SegAsignacion</class>
+		<class>vicar.model.core.entities.SegModulo</class>
+		<class>vicar.model.core.entities.SegPerfil</class>
+		<class>vicar.model.core.entities.SegUsuario</class>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/dashboard.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/style-ventas.css" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home"
+				action="#{beanRenta.actionRegresar()}" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo de renta"></p:staticMessage>
+	</h:form>
+	<div align="center">
+		<h:form id="lista2" styleClass="ListaDetalles">
+			<p:dataTable value="#{beanRenta.listaNotaRenta}" var="p"
+				emptyMessage="Sin registros">
+				<p:column headerText="NOMBRES"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.cliente.cliNombre}" />
+				</p:column>
+				<p:column headerText="CEDULA"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.cliente.cliCedula}" />
+				</p:column>
+				<p:column headerText="TELEFONO"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.cliente.cliTelefono}" />
+				</p:column>
+				<p:column headerText="DIRECCION"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.cliente.cliDireccion}" />
+				</p:column>
+				<p:column headerText="CORREO"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.cliente.cliCorreo}" />
+				</p:column>
+				<p:column headerText="FECHA FACTURA"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.ntrFechaActual}" />
+				</p:column>
+				<p:column headerText="FECHA ALQUILER FIN"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{p.ntrFechaFin}" />
+				</p:column>
+			</p:dataTable>
+			<p:panelGrid columns="6">
+				<h:outputText value="NOMBRES:"
+					style="font-weight:bold; font-size:20px" />
+				<h:outputText
+					value="#{beanRenta.listaNotaRenta.get(0).cliente.cliNombre}"
+					style="font-size:20px" styleClass=" reskinned-datatable" />
+				<h:outputText value="CÉDULA" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanRenta.listaNotaRenta.get(0).cliente.cliCedula}"
+					style="font-size:20px" styleClass=" reskinned-datatable" />
+				<h:outputText value="TELÉFONO" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanRenta.listaNotaRenta.get(0).cliente.cliTelefono}"
+					style="font-size:20px" styleClass=" reskinned-datatable" />
+				<h:outputText value="DIRECCIÓN:" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanRenta.listaNotaRenta.get(0).cliente.cliCorreo}"
+					style="font-size:20px" styleClass=" reskinned-datatable" />
+				<h:outputText value="CORREO:" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanRenta.listaNotaRenta.get(0).cliente.cliNombre}" style="font-size:20px"
+					styleClass=" reskinned-datatable"/>
+				<h:outputText value="FECHA FACTURA:" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanRenta.listaNotaRenta.get(0).cliente.cliNombre}" />
+				<h:outputText value="FECHA FIN ALQUILER:" style="font-weight:bold" />
+				<h:outputText
+					value="#{beanRenta.listaNotaRenta.get(0).cliente.cliNombre}" />
+			</p:panelGrid>
+			<p:dataTable value="#{beanRenta.listaDetalles}" var="q">
+				<p:column headerText="ID PRODUCTO"
+					style="width:30px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{q.producto.idProducto}" />
+				</p:column>
+				<p:column headerText="NOMBRE PRODUCTO"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{q.producto.proNombre}" />
+				</p:column>
+				<p:column headerText="CANTIDAD"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{q.detRentaCantidad}" />
+				</p:column>
+				<p:column headerText="PRECIO UNITARIO"
+					style="width:120px; font-size:20px; text-align: center"
+					styleClass="reskinned-datatable">
+					<h:outputText value="#{q.producto.proPrecioAlquiler}" />
+					<f:facet name="footer">
+						<h:outputText
+							value="TOTAL: #{beanRenta.listaNotaRenta.get(0).ntrTotal}"
+							style="width:120px; font-size:20px; text-align: center"
+							styleClass="reskinned-datatable" />
+					</f:facet>
+				</p:column>
+			</p:dataTable>>
+		</h:form>
+	</div>
+</body>
+</html>

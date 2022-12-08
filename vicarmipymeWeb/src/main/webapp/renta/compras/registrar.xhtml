@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/dashboard.css" />
+		<link rel="stylesheet" type="text/css"
+		href="../../resources/css/style-ventas.css" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo de compra"></p:staticMessage>
+	</h:form>
+	<div align="center">
+		<h:form id="lista1" styleClass="ListaDetalles2">
+			<p:panelGrid columns="8">
+				<h:outputText value="RUC" style="width:120px; font-size:20px; text-align: center"/>
+				<p:selectOneMenu id="city" value="#{beanCompra.ruc}" effect="fold"
+					editable="true">
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{beanCompra.listaProveedores}" var="u"
+						itemLabel="#{u.rucProveedor} (#{u.provNombre})"
+						itemValue="#{u.rucProveedor}"></f:selectItems>
+				</p:selectOneMenu>
+				<h:outputText value="PRODUCTO" style="width:120px; font-size:20px; text-align: center" />
+				<p:selectOneMenu value="#{beanCompra.idProductoSeleccionado}">
+					<f:selectItem itemLabel="Seleccione..." noSelectionOption="true" />
+					<f:selectItems value="#{beanCompra.listaProductos}" var="u"
+						itemLabel=" #{u.proNombre}" itemValue="#{u.idProducto}"></f:selectItems>
+				</p:selectOneMenu>
+				<h:outputText value="CANTIDAD" style="width:120px; font-size:20px; text-align: center"/>
+				<p:spinner value="#{beanCompra.cantidadSeleccionada}" min="1"
+					max="100" style="width:80px" />
+				<p:commandButton title="Carrito" icon="pi pi-shopping-cart"
+					actionListener="#{beanCompra.actionListenerAdicionarProducto()}"
+					update="@form,:lista2" styleClass="rounded-button ui-button-help"/>
+				<p:commandButton value="SAVE" icon="pi pi-save"
+					update="@form,:lista2" styleClass="rounded-button ui-button-help"
+					action="#{beanCompra.actionRegistrarCompra()}" />
+			</p:panelGrid>
+		</h:form>
+		<h:form id="lista2"  styleClass="ListaDetalles">
+			<p:dataTable value="#{beanCompra.cabecera.detalleCompras}" var="p">
+				<p:column headerText="ID PRODUCTO" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{p.producto.idProducto}" />
+				</p:column>
+				<p:column headerText="PROVEEDOR" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{beanCompra.cabecera.proveedore.provNombre}" />
+				</p:column>
+				<p:column headerText="NOMBRE PRODUCTO" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{p.producto.proNombre}" />
+				</p:column>
+				<p:column headerText="CANTIDAD" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{p.detCompCantidad}" />
+					<f:facet name="footer">
+						<h:outputText style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable" value="TOTAL: #{beanCompra.cabecera.compTotal}" />
+					</f:facet>
+				</p:column>
+				<p:column headerText="OPCIONES" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<p:commandButton value="ELIMINAR" icon="pi pi-times" ajax="false" 
+						styleClass="rounded-button ui-button-success"
+						actionListener="#{beanCompra.actionListenerQuitarProducto(p.producto.idProducto)}"
+						update="@form,:lista1" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+</body>
+</html>

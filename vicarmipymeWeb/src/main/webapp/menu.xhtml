@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Menu principal</title>
+	<link rel="stylesheet" type="text/css" href="resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/dashboard.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/style-ventas.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/home.css" />
+</h:head>
+<body>
+	<h:form>
+		<p:menubar>
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+	<div align="center">
+		<h:form>
+			<p:panel style="width:50%" styleClass="my-pane">
+				<p:staticMessage severity="info" summary="SISTEMA VICAR"
+					style="width: 100%"/>
+				<p:dataView value="#{beanSegLogin.loginDTO.listaPerfiles}"
+					var="perfil" layout="grid" gridIcon="pi pi-th-large"
+					emptyMessage="No tiene perfiles asignados. Consulte al administrador." style="">
+					<p:dataViewGridItem styleClass="reskinned-datatable">
+						<p:commandLink
+							action="#{beanSegLogin.actionMenu(perfil.rutaAcceso)}" styleClass="reskinned-datatable" >
+							<p:panelGrid columns="1" styleClass="reskinned-datatable">
+								<h:outputText value="#{perfil.segModulo.nombreModulo}"/>
+								<h:outputText value="#{perfil.nombrePerfil}" styleClass="reskinned-datatable2"/>
+								<i class="#{perfil.segModulo.icono}" style="font-size: 2rem"></i>
+							</p:panelGrid>
+						</p:commandLink>
+					</p:dataViewGridItem>
+				</p:dataView>
+			</p:panel>
+		</h:form>
+	</div>
+</body>
+</html>

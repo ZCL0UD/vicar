@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/style-ventas.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/estyle-registro.css" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo de proveedores"></p:staticMessage>
+	</h:form>
+	<div align="center">
+		<h:form  id="mentorship" style="background: white; padding: 64px; border: none; width: 750px;" >
+			<legend>Registro de Proveedores</legend>
+				<div id="line1"></div>
+				<div class="input-wrapper">
+				<h:outputText value="Nombre y Apellido:" />
+				<p:inputText value="#{beanProveedor.proveedorNuevo.provNombre}"  style=" font-size: 40px; text-align: center">
+					<f:validateRegex
+						pattern="^(([A-Z]|[Á-Ú])([a-z]|[á-ú])+)\s(([A-Z]|[Á-Ú])([a-z]|[á-ú])+)" />
+				</p:inputText>
+				<h:outputText value="RUC:" />
+				<p:inputText value="#{beanProveedor.proveedorNuevo.rucProveedor}"  style=" font-size: 40px; text-align: center">
+					<p:keyFilter mask="num" />
+					<f:validateRegex
+						pattern="^(([0][1-9])|([1][0-9])|([2][0-4]))([0-9]{11})" />
+				</p:inputText>
+				<h:outputText value="Teléfono:" />
+				<p:inputText value="#{beanProveedor.proveedorNuevo.provTelefono}"  style=" font-size: 40px; text-align: center">
+					<p:keyFilter mask="num" />
+					<f:validateRegex pattern="^([0-9]{10})" />
+				</p:inputText>
+				<h:outputText value="Dirección:" />
+				<p:inputText value="#{beanProveedor.proveedorNuevo.provDireccion}"  style=" font-size: 40px; text-align: center"/>
+				<h:outputText value="Correo:" />
+				<p:inputText value="#{beanProveedor.proveedorNuevo.provCorreo}" style=" font-size: 40px; text-align: center">
+					<f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+				</p:inputText>
+				</div>
+				<div id="line1"></div>
+				<p:commandButton value="Registar Proveedor" styleClass="rounded-button ui-button-help"
+					actionListener="#{beanProveedor.actionListenerInsertarProveedor()}"
+					update="@form"></p:commandButton>
+		</h:form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../resources/css/dashboard.css" />
+		<link rel="stylesheet" type="text/css"
+		href="../../resources/css/style-ventas.css" />
+</h:head>
+<body>
+<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="/menu?faces-redirect=true" />
+			<p:menuitem value="Registrar Proveedor" icon="pi pi-home" action="registrarProveedor" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo de proveedores"></p:staticMessage>
+	</h:form>
+	<div align="center">
+		<h:form id="lista1">
+			<p:panelGrid columns="4" styleClass="ListaDetalles2">
+				<h:outputText value="RUC PROVEEDOR:-" style="width:120px; font-size:20px; text-align: center" />
+				<p:inputText value="#{beanProveedor.ruc}" style="width:180px">
+				<p:keyFilter mask="num" />
+					<f:validateRegex
+						pattern="^(([0][1-9])|([1][0-9])|([2][0-4]))([0-9]{11})" />
+				</p:inputText>
+				<p:commandButton value="CONSULTAR"
+					styleClass="rounded-button ui-button-help"
+					actionListener="#{beanProveedor.actionFindByRuc()}"
+					update="@form,:lista2"></p:commandButton>
+				<p:commandButton value="LISTAR TODOS"
+					styleClass="rounded-button ui-button-help"
+					actionListener="#{beanProveedor.actionFindAllProveedores()}"
+					update="@form,:lista2"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+		</div>
+		<div align="center">
+		<h:form id="lista2" styleClass="ListaDetalles">
+			<p:dataTable value="#{beanProveedor.listaProveedores}" var="l" paginator="true" rows="5"
+			emptyMessage="Aún no hay registro de Proveedor">
+				<p:column headerText="RUC" style="width:120px; font-size:20px; text-align: center" styleClass="reskinned-datatable" >
+					<h:outputText value="#{l.rucProveedor}" />
+				</p:column>
+				<p:column headerText="Nombre y Apellido" style="width:120px; font-size:20px; text-align: center" styleClass="reskinned-datatable" >
+					<h:outputText value="#{l.provNombre}" />
+				</p:column>
+				<p:column headerText="Dirección" style="width:120px; font-size:20px; text-align: center" styleClass="reskinned-datatable" >
+					<h:outputText value="#{l.provDireccion}" />
+				</p:column>
+				<p:column headerText="Telefono" style="width:120px; font-size:20px; text-align: center" styleClass="reskinned-datatable" >
+					<h:outputText value="#{l.provTelefono}" />
+				</p:column>
+				<p:column headerText="Correo" style="width:120px; font-size:20px; text-align: center" styleClass="reskinned-datatable" >
+					<h:outputText value="#{l.provCorreo}" />
+				</p:column>
+				<p:column headerText="OPCIONES" styleClass="reskinned-datatable" width="10%" style="width:120px; font-size:20px; text-align: center">
+					<p:commandButton id="cmdEdicion" icon="pi pi-pencil" title="editar"
+						styleClass="rounded-button ui-button-warning"
+						actionListener="#{beanProveedor.actionSeleccionarProveedor(l)}">
+					</p:commandButton>
+					<p:overlayPanel for="cmdEdicion" dynamic="true"
+						showCloseIcon="true" style="width:70%">
+						<p:panel header="Editar proveedor">
+							<p:panelGrid columns="2">
+								<h:outputText value="Dirección" />
+								<p:inputText
+									value="#{beanProveedor.edicionProveedor.provDireccion}" />
+								<h:outputText value="Teléfono" />
+								<p:inputText value="#{beanProveedor.edicionProveedor.provTelefono}" />
+								<h:outputText value="Correo" />
+								<p:inputText value="#{beanProveedor.edicionProveedor.provCorreo}" />
+								<p:commandButton value="Actualizar Proveedor"
+									actionListener="#{beanProveedor.actionUpdateProveedor()}"
+									update="@form,:lista1" icon="pi pi-save" />
+							</p:panelGrid>
+						</p:panel>
+					</p:overlayPanel>
+					<p:commandButton icon="pi pi-times-circle" title="eliminar"
+						ajax="false" 
+						styleClass="rounded-button ui-button-success" update="@form"
+						actionListener="#{beanProveedor.eliminarProveedor(l)}">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+</body>
+</html>

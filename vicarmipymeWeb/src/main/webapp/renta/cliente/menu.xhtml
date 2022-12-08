@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+<link rel="stylesheet" type="text/css"
+		href="../../resources/css/vicar.css" />
+<link rel="stylesheet" type="text/css"
+		href="../../resources/css/dashboard.css" />
+<link rel="stylesheet" type="text/css"
+		href="../../resources/css/style-ventas.css" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home"
+				action="/menu?faces-redirect=true" />
+			<p:menuitem value="Regristrar Cliente" icon="pi pi-home"
+				action="registrarCliente" />
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog"></p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out"
+						action="#{beanSegLogin.actionCerrarSesion()}"></p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+		<p:staticMessage severity="info" summary="Módulo Cliente"></p:staticMessage>
+	</h:form>
+	<div align="center">
+		<h:form id="lista1">
+			<p:panelGrid columns="4" styleClass="ListaDetalles2">
+				<h:outputText value="Cédula de Cliente:" style="width:10px; font-size:20px; text-align: center" />
+				<p:inputText value="#{beanCliente.cedulaCliente}"  required="true"
+				style="width:100%"
+				requiredMessage="Ingrese numero de cédula" >
+				<p:keyFilter mask="num" />
+				<f:validateRegex
+					pattern="^(([0][1-9])|([1][0-9])|([2][0-4]))([0-9]{8})" />
+			</p:inputText>
+				<p:commandButton value="Consultar cliente"
+					action="#{beanCliente.actionFindClienteByCedula()}"
+					update="@form,:lista2" style="text-align: center" styleClass="rounded-button ui-button-help"  />
+				<p:commandButton value="Todos los clientes"
+					action="#{beanCliente.actionFindAllCliente()}"
+					update="@form,:lista2" style="text-align: center" styleClass="rounded-button ui-button-help" />
+			</p:panelGrid>
+		</h:form>
+		<h:form id="lista2" styleClass="ListaDetalles">
+			<p:dataTable value="#{beanCliente.listaCliente}" var="u"
+				paginator="true" rows="5" emptyMessage="Aún no hay registro de Cliente">
+				<p:column headerText="Cédula" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{u.cliCedula}" />
+				</p:column>
+				<p:column headerText="Nombre y Apellido" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{u.cliNombre}" />
+				</p:column>
+				<p:column headerText="Dirección" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{u.cliDireccion}" />
+				</p:column>
+				<p:column headerText="Telefono" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{u.cliTelefono}" />
+				</p:column>
+				<p:column headerText="Correo" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<h:outputText value="#{u.cliCorreo}" />
+				</p:column>
+				<p:column headerText="Opciones" style="width:30px; font-size:20px; text-align: center" styleClass="reskinned-datatable">
+					<p:commandButton id="cmdEdicion" icon="pi pi-pencil" title="editar"
+						styleClass="rounded-button ui-button-warning"
+						action="#{beanCliente.actionSeleccionarEdicionCliente(u)}"
+						update="@form,:lista1" />
+					<p:overlayPanel for="cmdEdicion" dynamic="true"
+						showCloseIcon="true" style="width:70%">
+						<p:panel header="Editar cliente">
+							<p:panelGrid columns="2">
+								<h:outputText value="Dirección:" />
+								<p:inputText value="#{beanCliente.edicionCliente.cliDireccion}"
+									required="true" requiredMessage="Ingrese una Dirección" />
+								<h:outputText value="Telefono:" />
+								<p:inputText value="#{beanCliente.edicionCliente.cliTelefono}"
+									required="true" requiredMessage="Ingrese el telefono" />
+								<h:outputText value="Correo:" />
+								<p:inputText value="#{beanCliente.edicionCliente.cliCorreo}"
+									required="true" requiredMessage="Ingrese el correo" />
+								<p:commandButton value="Actualizar" icon="pi pi-save"
+									update="@form"
+									actionListener="#{beanCliente.actualizarRegistroCliente()}"></p:commandButton>
+							</p:panelGrid>
+						</p:panel>
+					</p:overlayPanel>
+					<p:commandButton icon="pi pi-times-circle" title="eliminar"
+						ajax="false" 
+						styleClass="rounded-button ui-button-success" update="@form,:lista1"
+						actionListener="#{beanCliente.eliminarRegistroClientelogico(u)}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+</body>
+</html>
